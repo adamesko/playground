@@ -6,7 +6,7 @@ var todoList = {
     } else {
       for(var i = 0; i < this.todos.length; i++){
         if (this.todos[i].completed === false){
-         console.log('( ) ' + this.todos[i].todoText);
+          console.log('( ) ' + this.todos[i].todoText);
         } else {
           console.log('(x) ' + this.todos[i].todoText);
         }
@@ -78,6 +78,15 @@ var todoList = {
   },
   clearTodos: function(){
     this.todos = [];
-    this.displayTodos();  
+    this.displayTodos();
+  }
+}
+
+var handlers = {
+  displayTodos: function(){
+    todoList.displayTodos();
+  },
+  toggleAll: function(){
+    todoList.toggleAll();
   }
 };

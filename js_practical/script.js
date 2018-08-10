@@ -4,6 +4,7 @@ var todoList = {
     if(this.todos.length === 0){
       console.log("This todo list is empty");
     } else {
+      console.log('My Todos: ')
       for(var i = 0; i < this.todos.length; i++){
         if (this.todos[i].completed === false){
           console.log('( ) ' + this.todos[i].todoText);
@@ -85,6 +86,28 @@ var todoList = {
 var handlers = {
   displayTodos: function(){
     todoList.displayTodos();
+  },
+  addTodo: function(){
+    var addTodoInputText = document.getElementById('addTodoInputText');
+    todoList.addTodo(addTodoInputText.value);
+    addTodoInputText.value = '';
+  },
+  changeTodo: function(){
+    var changeTodoInputPosition = document.getElementById('changeTodoInputPosition');
+    var changeTodoInputText = document.getElementById('changeTodoInputText');
+    todoList.changeTodo(changeTodoInputPosition.valueAsNumber, changeTodoInputText.value);
+    changeTodoInputPosition.value = '';
+    changeTodoInputText.value = '';
+  },
+  deleteTodo: function(){
+    var deleteTodoInputPosition = document.getElementById('deleteTodoInputPosition');
+    todoList.deleteTodo(deleteTodoInputPosition.valueAsNumber);
+    deleteTodoInputPosition.value = '';
+  },
+  toggleCompleted: function(){
+    var toggleCompletedInputPosition = document.getElementById('toggleCompletedInputPosition');
+    todoList.toggleCompleted(toggleCompletedInputPosition.value);
+    toggleCompletedInputPosition.value = '';
   },
   toggleAll: function(){
     todoList.toggleAll();

@@ -11,7 +11,6 @@
   <body>
     <h2>Todo App</h2>
     <div>
-      <button onclick='handlers.displayTodos()'>Display Todos</button>
       <button onclick='handlers.toggleAll()'>Toggle All</button>
     </div>
     <div>
@@ -24,13 +23,13 @@
       <input type="text" id="changeTodoInputText">
     </div>
     <div>
-      <button onclick="handlers.deleteTodo()">Delete Todo</button>
-      <input type="number" id="deleteTodoInputPosition">
-    </div>
-    <div>
       <button onclick="handlers.toggleCompleted()">Toggle Completed</button>
       <input type="number" id="toggleCompletedInputPosition">
     </div>
+    <ul style="list-style:none">
+
+    </ul>
+    <p onclick="handlers.clearTodos()" style="cursor:pointer; display:inline-block;width:auto">Clear All</p>
     <script type='text/javascript' src="script.js"></script>
   </body>
 </html>

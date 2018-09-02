@@ -5,31 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Todo List App</title>
-  <link rel="stylesheet" href="">
+  <link rel="stylesheet" href="styles.css">
 
 </head>
   <body>
     <h2>Todo App</h2>
     <div>
-      <button onclick='handlers.toggleAll()'>Toggle All</button>
+      <input type="text" id="addTodoInputText" placeholder="What needs to be done?" autofocus>
     </div>
+    <!--
     <div>
-      <button onclick="handlers.addTodo()">Add Todo</button>
-      <input type="text" id="addTodoInputText">
-    </div>
-    <div>
-      <button onclick="handlers.changeTodo()">Change Todo</button>
+     <button onclick="handlers.changeTodo()">Change Todo</button>
       <input type="number" id="changeTodoInputPosition">
       <input type="text" id="changeTodoInputText">
-    </div>
-    <div>
-      <button onclick="handlers.toggleCompleted()">Toggle Completed</button>
-      <input type="number" id="toggleCompletedInputPosition">
-    </div>
+    </div> -->
     <ul style="list-style:none">
 
     </ul>
-    <p onclick="handlers.clearTodos()" style="cursor:pointer; display:inline-block;width:auto">Clear All</p>
+    <button onclick="handlers.clearTodos()">Clear All</button>
+    <button onclick="handlers.toggleAll()">Toggle All</button>
+    <p> Zmiana tekstu zadania - ctrl + click.</p>
     <script type='text/javascript' src="script.js"></script>
   </body>
 </html>

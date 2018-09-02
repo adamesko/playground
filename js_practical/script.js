@@ -42,28 +42,17 @@ var todoList = {
 }
 
 var handlers = {
-  addTodo: function(){
-    var addTodoInputText = document.getElementById('addTodoInputText');
-    todoList.addTodo(addTodoInputText.value);
-    addTodoInputText.value = '';
-    view.displayTodos();
-  },
-  changeTodo: function(){
-    var changeTodoInputPosition = document.getElementById('changeTodoInputPosition');
-    var changeTodoInputText = document.getElementById('changeTodoInputText');
-    todoList.changeTodo(changeTodoInputPosition.valueAsNumber, changeTodoInputText.value);
-    changeTodoInputPosition.value = '';
-    changeTodoInputText.value = '';
+
+  changeTodo: function(position, newValue){
+    todoList.changeTodo(position, newValue);
     view.displayTodos();
   },
   deleteTodo: function(position){
     todoList.deleteTodo(position);
     view.displayTodos();
   },
-  toggleCompleted: function(){
-    var toggleCompletedInputPosition = document.getElementById('toggleCompletedInputPosition');
-    todoList.toggleCompleted(toggleCompletedInputPosition.value);
-    toggleCompletedInputPosition.value = '';
+  toggleCompleted: function(position){
+    todoList.toggleCompleted(position);
     view.displayTodos();
   },
   toggleAll: function(){
@@ -80,6 +69,57 @@ var handlers = {
       var elementClicked = event.target;
       if(elementClicked.className == 'deleteButton'){
         handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
+      }
+    })
+  },
+  inputEvents: function(){
+    var addTodoInputText = document.getElementById('addTodoInputText');
+    addTodoInputText.addEventListener('keyup',function(event){
+    //  event.preventDefault(); - jeszcze nie wiem do czego to
+      if (event.keyCode === 13) {
+        todoList.addTodo(addTodoInputText.value);
+        addTodoInputText.value = '';
+        view.displayTodos();
+      }
+    })
+  },
+  toggleEvents: function(){
+    var todosUl = document.querySelector('ul');
+    todosUl.addEventListener('click', function(event){
+      if(event.target.nodeName == 'LI' && event.ctrlKey == false){
+        handlers.toggleCompleted(parseInt(event.target.id));
+      }
+    })
+  },
+  changeEvents: function(){
+    var todosUl = document.querySelector('ul');
+    todosUl.addEventListener('click', function(event){
+      var elementClickedId = event.target.id;
+      if(event.target.nodeName == 'LI' && event.ctrlKey == true){
+        var inputElement = document.createElement('input');
+        var todoLi = document.getElementById(elementClickedId)
+        inputElement.type = "text";
+        inputElement.value = todoList.todos[elementClickedId].todoText;
+        todoLi.innerHTML = "";
+        todoLi.appendChild(inputElement);
+        inputElement.focus();
+        todoLi.addEventListener('keyup',function(event){
+          //  event.preventDefault(); - jeszcze nie wiem do czego to
+            if (event.keyCode === 13) {
+              if (inputElement.value == ""){
+                view.displayTodos();
+              } else {
+                handlers.changeTodo(parseInt(elementClickedId), inputElement.value);
+              }
+            }
+          });
+        todoLi.addEventListener('focusout',function(event){
+          if (inputElement.value == ""){
+          view.displayTodos();
+          } else {
+            handlers.changeTodo(parseInt(elementClickedId), inputElement.value);
+          }
+        })
       }
     })
   }
@@ -104,8 +144,11 @@ var view = {
   createDeleteButton: function(){
     var deleteButton = document.createElement('button');
     deleteButton.className = 'deleteButton';
-    deleteButton.textContent = 'Delete';
+    deleteButton.textContent = 'X';
     return deleteButton;
   },
 };
 handlers.deleteEvents();
+handlers.inputEvents();
+handlers.toggleEvents();
+handlers.changeEvents();
